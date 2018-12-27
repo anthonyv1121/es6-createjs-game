@@ -8,8 +8,4 @@ Install a local development server like [Live Server](https://marketplace.visual
 
 ### Prerequisites
 
-Download
-
-```
-[CreateJS](https://www.createjs.com/)
-```
+Download [CreateJS](https://www.createjs.com/)
