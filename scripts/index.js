@@ -1,6 +1,8 @@
 "use strict";
 
 import { Game } from "./Game.js";
+import { LevelData } from "./data.js";
+import { sounds } from "./constants.js";
 
 // start the game
 const GameBoilerplate = (_canvas, cjs, fps, loader) => {
@@ -47,7 +49,20 @@ const GameBoilerplate = (_canvas, cjs, fps, loader) => {
 };
 // This class controls the game data.
 class GameDataService {
-  constructor() {}
+  constructor(levelData, sounds) {
+    return this.getData({ levels: levelData, sounds });
+  }
+  getData(data) {
+    return {
+      levels: this.getLevelData(data.levels),
+      sounds: data.sounds
+    };
+  }
+  getLevelData(levels) {
+    return new levels().levels;
+  }
 }
 
-new Game(new GameDataService(), GameBoilerplate);
+const data = new GameDataService(LevelData, sounds);
+const ES6Game = new Game(data, GameBoilerplate);
+window.game = ES6Game;

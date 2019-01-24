@@ -14,21 +14,48 @@ export class GameObject extends createjs.Container {
 }
 
 export class MoveableGameObject extends GameObject {
-  constructor(graphic) {
+  constructor(graphic, store) {
     super(graphic);
-
+    // console.log("MOVEABLE", store);
+    this.store = store;
     this.velocity = {
       x: 0,
       y: 0
     };
 
     this.onGround = false;
-
+    this.moveable = true;
     this.on("tick", this.tick);
+
+    // this.store.subscribe((state, action) => {
+    //   let { worldLevelComplete, heroFallen } = state.world;
+    //   let listener;
+
+    //   if (!worldLevelComplete && !heroFallen) {
+    //     listener = this.on("tick", this.tick);
+    //   } else {
+    //     listener.off("tick", this.tick);
+    //   }
+    // })
   }
 
-  tick() {
-    this.y += this.velocity.y;
-    this.x += this.velocity.x;
+  tick(e) {
+    let { worldLevelComplete, heroFallen } = this.store.state.world;
+
+    if (!worldLevelComplete && !heroFallen) {
+      this.y += this.velocity.y;
+      this.x += this.velocity.x;
+    } else {
+      this.freeze();
+      // e.remove();
+    }
+  }
+
+  freeze() {
+    console.log("FREEZE");
+    this.moveable = false;
+    if (this.stop) {
+      // this.stop();
+    }
   }
 }

@@ -3,6 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="images/icons/Icon.png.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/icons/Icon-76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="images/icons/Icon-60@2x.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/icons/Icon-76@2x.png">
     <title>Rush game</title>
     <link
       href="https://fonts.googleapis.com/css?family=Oswald"
@@ -12,11 +17,49 @@
     <link rel="stylesheet" href="styles/game.css" />
   </head>
   <body>
+      <header>
+          <h1>Rush</h1>
+      </header>
     <div id="game">
-      <canvas id="game-canvas" width="400" height="320">
+      <canvas id="game-canvas" class="active scene" width="480" height="320">
         This is an interactive game.
       </canvas>
+      <div id="menu" class="active scene">
+        <h1 class="game-title">Super ES6 Game</h1>
+        <button id="start-game-button" class="start-game-button">Start Game</button>
+      </div>
+      <div id="heroDied" class="scene">
+        <h1>Ouch that's gotta hurt! <br> YOU LOSE!</h1>
+      </div>
+      <div id="gameover" class="scene">
+        <img src="images/rush-gameover-scene.png" alt="Game Over">
+        <p>Score: <span class="score-text">0</span></p>
+        <button id="exit-button">Exit to Menu</a>
+      </div>
+      <div id="scoreScene" class="scene">
+          <p>Score: <span class="score-text">0</span></p>
+      </div>
+      <div id="levelScene" class="scene">
+          <h2>Level <span class="level-label">{{level}}</span> Complete! Great job.</p>
+          <button id="next-level-button">Start Next Level</a>
+      </div>
     </div>
+    <div class='hr'>
+        <hr>
+      </div>
+      <section>
+          <p>Simple HTML5 game with ES6 Classes using createJS</p>
+        <h2>How to Play?</h2>
+        <ul class='how-to-play'>
+          <li>Press the screen to jump.</li>
+          <li>Avoid the obstacles.</li>
+          <li>Collect the game coins.</li>
+        </ul>
+      </section>
+      <footer>
+        <p><a href='http://twtter.com/makzan'>@makzan</a></p>
+        <p>Handmade in Macao.</p>
+      </footer>
     <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
     <script src="scripts/graphics/rush-game-graphics.js"></script>
     <!--
@@ -24,5 +67,8 @@
     -->
     <!-- <script type="module" src="scripts/game-es6.js"></script> -->
     <script type="module" src="scripts/index.js"></script>
+    <script>
+    document.body.style.width = String(window.innerWidth) + "px";
+    </script>
   </body>
 </html>

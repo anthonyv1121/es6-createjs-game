@@ -1,8 +1,9 @@
 import { MoveableGameObject, GameObject } from "./base/GameObjectBase.js";
 
 export class Hero extends MoveableGameObject {
-  constructor() {
-    super(new lib.HeroGraphic());
+  constructor(store) {
+    super(new lib.HeroGraphic(), store);
+    console.log("Hero", store);
     this.velocity.x = 1;
     // this.graphic.gotoAndPlay
   }
@@ -21,12 +22,15 @@ export class Hero extends MoveableGameObject {
       this.onGround = false;
     }
   }
+  stop() {
+    this.graphic.gotoAndStop(2);
+  }
 }
 
 export class Enemy extends MoveableGameObject {
-  constructor() {
-    super(new lib.ObstacleGraphic());
-
+  constructor(store) {
+    super(new lib.ObstacleGraphic(), store);
+    console.log("Enemy", store);
     this.directionX = -1; // value either -1 or +1 : determines if it should move right or left
     this.speed = 0.5; // how far it moves
     this.offsetX = 0; // how far is it from original X position
@@ -47,5 +51,19 @@ export class Enemy extends MoveableGameObject {
 export class Platform extends GameObject {
   constructor() {
     super(new lib.PlatformGraphic());
+  }
+  setClippingWidth(width) {
+    this.graphic.instance.mask = new createjs.Shape(
+      new createjs.Graphics()
+        .beginFill("#000")
+        .drawRect(0, 0, width, this.getBounds().height)
+    );
+    this.setBounds(this.x, this.y, width, this.getBounds().height);
+  }
+}
+
+export class Coin extends GameObject {
+  constructor() {
+    super(new lib.CoinGraphic());
   }
 }

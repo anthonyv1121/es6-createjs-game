@@ -1,0 +1,211 @@
+$bgColor: #619391;
+$brown: #ca5328;
+$navy: #004058;
+$tan: #f8e0be;
+$mainFont: "super_plumber_brothersregular";
+$textFont: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+$sceneColor: rgba(140, 160, 210, 1);
+
+@mixin lightenScene($opacity) {
+  background-color: rgba(140, 160, 210, $opacity);
+}
+
+@font-face {
+  font-family: "super_plumber_brothersregular";
+  src: url("../fonts/super_plumber_brothers-webfont.woff2") format("woff2"),
+    url("../fonts/super_plumber_brothers-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  background: #fcf8fc url(../images/noise-bg.png);
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background: url(../images/landscape.png) top center repeat-x;
+  border-top: 5px solid #008894;
+  font-family: $textFont;
+}
+header {
+  width: 480px;
+  height: 100px;
+  margin: 2em auto;
+  background: url(../images/rush-header.png) center center no-repeat;
+  overflow: hidden;
+
+  h1 {
+    text-indent: 100%;
+    white-space: nowrap;
+    font-family: $textFont;
+  }
+}
+
+canvas {
+  background: #f9f9f9;
+}
+
+h1 {
+  font-family: $mainFont;
+  font-size: 50px;
+  text-transform: uppercase;
+  margin: 0;
+  font-weight: normal;
+  margin-bottom: 20px;
+  // color: $navy;
+
+  &.game-title {
+    background-color: $brown;
+    padding: 5px 20px 10px;
+    color: $tan;
+    text-shadow: 2px 7px 4px rgba(0, 0, 0, 0.7);
+    letter-spacing: 3px;
+    text-align: left;
+    box-shadow: 1px 0 1px rgba(0, 0, 0, 0.7);
+    border-left: 1px solid;
+    border-top: 1px solid;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.7);
+  }
+}
+section {
+  width: 480px;
+  margin: auto;
+}
+#game {
+  width: 480px;
+  height: 320px;
+  position: relative;
+  overflow: hidden;
+  margin: auto;
+  box-shadow: 0 6px 3px -5px #000;
+  border-style: solid;
+  border-width: 2px;
+  border-top-color: #c5a578;
+  border-left-color: #977e5a;
+  border-right-color: #977e5a;
+  border-bottom-color: #7c6749;
+}
+.scene {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $sceneColor;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  /* see .active.scene */
+  transform: translate3d(0, 100%, 0);
+
+  transition: transform 0.3s ease-out;
+
+  &.active {
+    transform: translate3d(0, 0, 0);
+  }
+
+  button {
+    padding: 0.75em;
+    background: #619391;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+
+    & + button {
+      margin-top: 30px;
+    }
+    &:hover {
+      background: #466b6a;
+    }
+  }
+}
+
+#menu {
+  // background-image: url("../images/rush_game_trees_bg.png");
+  // background-repeat: no-repeat;
+  // background-position: bottom center;
+  // background-size: 100%;
+  background: url(../images/rush-menu-scene.png);
+  padding: 2em;
+  padding-top: 130px;
+}
+#heroDied {
+  @include lightenScene(0.7);
+  justify-content: center;
+
+  h1 {
+    font-size: 48px;
+  }
+}
+/* Game Score */
+#scoreScene.scene {
+  opacity: 0;
+  transform: none;
+  background: none;
+  transition: opacity 0.3s ease-out;
+  pointer-events: none;
+
+  &.active {
+    opacity: 1;
+  }
+}
+#levelScene {
+  background-color: rgba(255, 255, 255, 0.85);
+  top: 50%;
+  height: 50%;
+  position: absolute;
+}
+#gameover {
+  justify-content: center;
+  padding-top: 15px;
+  background-color: #b0f0d8;
+
+  h1 {
+    margin-top: 60px;
+    margin-bottom: 0;
+  }
+  button {
+    float: left;
+  }
+}
+ul.how-to-play {
+  list-style-image: url(../images/coin1.png);
+  list-style-position: inside;
+  padding: 0;
+}
+.hr {
+  background: url(../images/hr.png) center center no-repeat;
+  height: 50px;
+
+  hr {
+    display: none;
+  }
+}
+footer {
+  text-align: center;
+  color: #999;
+  font-size: 0.8em;
+  margin-bottom: 3em;
+
+  a {
+    text-decoration: none;
+    color: #999;
+    transition: all 0.3s ease-out;
+
+    &:hover {
+      color: #000;
+    }
+  }
+}
