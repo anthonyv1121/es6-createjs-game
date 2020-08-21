@@ -7,8 +7,6 @@ export class World extends createjs.Container {
     this.level;
     this.specs = specs;
     this.store = store;
-    // this.createWorld();
-    this.addHero();
 
     this.store.subscribe((state, action) => {
       let { type, payload } = action;
@@ -21,8 +19,14 @@ export class World extends createjs.Container {
   }
   createWorld(level) {
     this.level = level;
+    this.resetWorld();
     this.generatePlatforms();
     this.on("tick", this.tick);
+  }
+  resetWorld() {
+    this.removeAllChildren();
+    this.x = 0;
+    this.addHero();
   }
   tick(e) {
     let { worldLevelComplete, heroFallen } = this.store.state.world;
@@ -77,21 +81,21 @@ export class World extends createjs.Container {
   }
   generatePlatforms() {
     const { gapX, gapY, total, widthDiff } = this.level;
-    let nextX = 100;
-    let nextY = 200;
+    let startX = 100;
+    let startY = 200;
 
     for (let i = 0; i < total; i++) {
       let platform = new Platform();
-      platform.x = nextX;
-      platform.y = nextY;
+      platform.x = startX;
+      platform.y = startY;
 
       let width = getBounds(platform).width;
       platform.setClippingWidth(width - Math.random() * widthDiff);
 
       // this.platforms.push(platform);
 
-      nextX = platform.x + width + Math.random() * gapX;
-      nextY = platform.y + (Math.random() - 0.5) * gapY;
+      startX = platform.x + width + Math.random() * gapX;
+      startY = platform.y + (Math.random() - 0.5) * gapY;
 
       this.addChild(platform);
       this.store.dispatch({ type: "PLATFORM_ADDED", payload: platform });

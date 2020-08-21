@@ -53,18 +53,24 @@ export class Game {
     this.stage.on("stagemousedown", () => this.world.hero.jump());
   }
   initWorld() {
+    this.gvm.updateLevelLabel(this.store.state.game.level + 1);
     this.world.createWorld(this.levels[this.store.state.game.level]);
     this.gvm.hideLevelScreen();
   }
   subscribeToStore(state, action) {
     console.log("ACTION:", action, state);
     if (action.type === "HERO_HAS_FALLEN") {
+      this.score.reset();
       this.soundManager.playSound("heroFall");
       this.gvm.showHeroDeadScreen(() => this.soundManager.playSound("gameEnd"));
     }
     if (action.type === "WORLD_LEVEL_COMPLETE") {
       setTimeout(() => this.soundManager.playSound("levelComplete"), 1000);
       this.gvm.showLevelScreen(state.game.level + 1);
+      // this.world.children.forEach(child => {
+      //   child.parent.removeChild(child);
+      // });
+      // this.world.removeAllChildren();
     }
     if (action.type === "NEXT_LEVEL_REQUESTED") {
       this.initWorld();

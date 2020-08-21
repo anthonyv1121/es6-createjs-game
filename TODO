@@ -1,0 +1,3 @@
+- Add Score as part of the Store (game:{level, score}) and refactor
+- Refactor collission, gravity functions in World.js into it's own generic Physics Class
+- Create Game Won State

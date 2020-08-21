@@ -69,11 +69,12 @@ export const GameViewManager = () => {
     },
     showLevelScreen = level => {
       showScreen(levelScene);
-      updateAlText(levelLabel, level);
+      updateLevelLabel(level);
     },
     hideLevelScreen = () => {
       hideScreens(levelScene);
     },
+    updateLevelLabel = level => updateAlText(levelLabel, level),
     nextLevel = e => {
       e.target.dispatchEvent(
         new CustomEvent("start next level request", {
@@ -97,6 +98,7 @@ export const GameViewManager = () => {
     showLevelScreen,
     setGameScore,
     nextLevelButton,
-    hideLevelScreen
+    hideLevelScreen,
+    updateLevelLabel
   };
 };
